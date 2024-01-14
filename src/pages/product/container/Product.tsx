@@ -6,9 +6,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import ProductForm from "../components/ProductForm";
 import { IIdImage } from "hooks/usePostImage";
+import { useAppDispatch } from "store/storeHooks";
+import { setOpenDrawer } from "components/elements/FormDrawer/formdrawer.slice";
 
 const Client = () => {
   const columns = useProductColumns();
+  const dis = useAppDispatch();
   const { t } = useTranslation();
   const formStore = useForm();
   const [editingProduct, setEditingProduct] = useState();
@@ -42,6 +45,7 @@ const Client = () => {
         dataUrl="product/pagin"
         searchable
         headerChildren={renderHeader}
+        onAddButton={() => dis(setOpenDrawer(true))}
         title="Products"
         exQueryParams={{
           isActive: formStore.watch("isActive") || undefined,

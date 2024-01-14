@@ -77,6 +77,44 @@ const ProductForm = ({
       <form id="product" onSubmit={handleSubmit(sumbit)}>
         <Grid container spacing={2}>
           <Grid item md={12}>
+            <div className="product-images">
+              <ImageInput
+                control={control}
+                setValue={setValue}
+                name="imageUrl"
+                rules={{ required: false }}
+                multiple
+                getImage={(img) => setProductImages((prev) => [...prev, img])}
+              />
+              {productImages?.map((image) => (
+                <div className="product-image" key={image._id}>
+                  <img
+                    src={process.env.REACT_APP_BASE_URL + image.url}
+                    alt="product"
+                  />
+                  <div className="on-hover">
+                    <span
+                      className="delete"
+                      onClick={() =>
+                        setProductImages((prev) =>
+                          prev.filter((prevImg) => prevImg._id !== image._id)
+                        )
+                      }
+                    >
+                      <DeleteIcon />
+                    </span>
+                    <span
+                      className={`main-image ${
+                        image._id === mainImageId && "active"
+                      }`}
+                      onClick={() => setMainImageId(image?._id)}
+                    ></span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Grid>
+          <Grid item md={12}>
             <TextInput
               name="name"
               control={control}
@@ -95,17 +133,8 @@ const ProductForm = ({
             <TextInput
               name="inStock"
               control={control}
-              label={t("common.residue")}
-              type="number"
-            />
-          </Grid>
-          <Grid item md={12}>
-            <AutoCompleteForm
-              control={control}
-              name="categoryId"
-              optionsUrl="category/storeProduct"
-              dataProp="data.data"
-              label={t("common.category")}
+              label={"Color"}
+              type="text"
             />
           </Grid>
           <Grid item md={12}>
@@ -116,20 +145,6 @@ const ProductForm = ({
                 setValue("description", value);
               }}
             />
-          </Grid>
-          <Grid item md={12}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <label htmlFor="isActive">{t("common.isActive")}</label>
-              <Switch
-                checked={watch("isActive")}
-                id="isActive"
-                {...register("isActive")}
-              />
-            </Box>
           </Grid>
           <Grid item md={12}>
             <Box
@@ -180,43 +195,6 @@ const ProductForm = ({
                 </Grid>
               </Grid>
             )}
-          </Grid>
-          <Grid item md={12}>
-            <div className="product-images">
-              <ImageInput
-                control={control}
-                setValue={setValue}
-                name="imageUrl"
-                rules={{ required: false }}
-                multiple
-                getImage={(img) => setProductImages((prev) => [...prev, img])}
-              />
-              {productImages?.map((image) => (
-                <div className="product-image" key={image._id}>
-                  <img
-                    src={process.env.REACT_APP_BASE_URL + image.url}
-                    alt="product"
-                  />
-                  <div className="on-hover">
-                    <span
-                      className="delete"
-                      onClick={() =>
-                        setProductImages((prev) =>
-                          prev.filter((prevImg) => prevImg._id !== image._id)
-                        )
-                      }
-                    >
-                      <DeleteIcon />
-                    </span>
-                    <span
-                      className={`main-image ${image._id === mainImageId && "active"
-                        }`}
-                      onClick={() => setMainImageId(image?._id)}
-                    ></span>
-                  </div>
-                </div>
-              ))}
-            </div>
           </Grid>
         </Grid>
       </form>

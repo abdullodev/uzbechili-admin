@@ -603,3 +603,9 @@
   border: none;
   cursor: pointer;
 }
+.order_number {
+  color: #0065ff;
+}
+.grey {
+  color: #999;
+}

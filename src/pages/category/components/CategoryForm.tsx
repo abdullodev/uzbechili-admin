@@ -68,7 +68,7 @@ const CategoryForm: React.FC<IBranchForm> = ({
           <Grid item md={12}>
             <TextInput name="name" control={control} label={t("common.name")} />
           </Grid>
-          <Grid item md={12}>
+          {/* <Grid item md={12}>
             <ImageInput
               control={control}
               setValue={setValue}
@@ -76,7 +76,7 @@ const CategoryForm: React.FC<IBranchForm> = ({
               rules={{ required: false }}
               className="mb-3"
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </form>
     </div>

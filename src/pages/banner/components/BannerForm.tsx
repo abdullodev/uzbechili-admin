@@ -63,24 +63,7 @@ const BannerForm: FC<IEmployeesForm> = ({
       <form id="banner" onSubmit={handleSubmit(submit)}>
         <Grid container spacing={2}>
           <Grid item md={12}>
-            <TextInput
-              control={control}
-              name="title"
-              label={t("common.name")}
-            />
-          </Grid>
-          <Grid item md={12}>
-            <AutoCompleteForm
-              control={control}
-              name="storeId"
-              optionsUrl="/store/pagin"
-              dataProp="data.data"
-              label={t("common.store")}
-              exQueryParams={{
-                page: 1,
-                limit: 10,
-              }}
-            />
+            <TextInput control={control} name="title" label={"Banner name"} />
           </Grid>
           <Grid item md={12}>
             <TextEditor

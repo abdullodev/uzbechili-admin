@@ -7,6 +7,9 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IOrder } from "types/common.types";
 import { OrderDetailsStyled } from "./OrderDetails.styled";
+import { Grid } from "@mui/material";
+import OrderDetail from "../components/OrderDetail";
+import OrderDetailForm from "../components/OrderDetailForm";
 
 const OrderDetails = () => {
   const { id } = useParams();
@@ -75,7 +78,14 @@ const OrderDetails = () => {
 
   return (
     <OrderDetailsStyled>
-      <h2>Details</h2>
+      <Grid container spacing={"20px"}>
+        <Grid item xs={7}>
+          <OrderDetail />
+        </Grid>
+        <Grid item xs={5}>
+          <OrderDetailForm />
+        </Grid>
+      </Grid>
     </OrderDetailsStyled>
   );
 };

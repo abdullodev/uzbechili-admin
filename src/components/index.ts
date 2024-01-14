@@ -33,6 +33,7 @@ import AutocompleteMultiple from "./elements/AutocompleteMultiple/AutocompleteMu
 import DragTable from "./elements/DragTable/DragTable";
 import CommonLoader from "./common/loader/CommonLoader";
 import DatePickerTime from "./form/TimeDatePicker/TimeDatePicker";
+import ChipButton from "./common/commonChip/ChipButton";
 
 export {
   Modal,
@@ -70,4 +71,5 @@ export {
   DragTable,
   CommonLoader,
   DatePickerTime,
+  ChipButton,
 };

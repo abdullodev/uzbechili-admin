@@ -3,8 +3,9 @@ import { IconButton } from "@mui/material";
 import styled from "styled-components";
 
 export const ButtonStyled = styled(Button)`
-  height: 36px !important;
-  border-radius: 18px !important;
+  height: 42px !important;
+  min-width: 110px !important;
+  border-radius: 12px !important;
   outline: none !important;
   font-size: 14px !important;
   text-transform: inherit !important;
@@ -40,6 +41,20 @@ export const ButtonStyled = styled(Button)`
   &.grey {
     background: #e9e9e9 !important;
     color: #000 !important;
+  }
+
+  &.accept {
+    background-color: #3e5189 !important;
+    color: #fff !important;
+  }
+  &.cancel {
+    background-color: #ef3838 !important;
+    color: #fff !important;
+  }
+
+  &.main {
+    background-color: #3e5189 !important;
+    color: #fff !important;
   }
 
   &:disabled {
