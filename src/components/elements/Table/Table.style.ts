@@ -125,6 +125,12 @@ export const TableContainerMain = styled.div<{ tableHeight?: string }>`
       gap: 5px;
       border-radius: 16px;
       cursor: pointer;
+
+      svg {
+        circle {
+          fill: #3e5189 !important;
+        }
+      }
     }
     .MuiButtonBase-root {
       width: 40px;

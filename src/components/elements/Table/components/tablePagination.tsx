@@ -80,7 +80,8 @@ function CustomizedMenus({
   return (
     <>
       <button onClick={handleClick} className="pag_title">
-        <PagIcon /> {currLimit} {t("PAGES_TITLE.ROWDAN")}
+        <PagIcon /> {currLimit} rows
+        {/* {t("PAGES_TITLE.ROWDAN")} */}
       </button>
       <StyledMenu
         id="demo-customized-menu"
