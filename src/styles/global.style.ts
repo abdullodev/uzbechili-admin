@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
@@ -111,4 +111,49 @@ export const TableTitle = styled(Typography)`
   font-weight: 700 !important;
   font-family: Nunito !important;
   margin-bottom: 10px !important;
+`;
+
+export const DeleteStyle = styled(IconButton)`
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 8px !important;
+  background: rgba(239, 56, 56, 0.1) !important;
+
+  svg {
+    path {
+      fill: #ef3838;
+    }
+  }
+`;
+
+export const AmountCalcBox = styled(Box)`
+  min-width: 90px;
+  height: 32px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+
+  .amount {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #000;
+    padding-bottom: 3px;
+  }
+  .buttonAmount {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+
+    svg {
+      path {
+        fill: #999;
+      }
+    }
+  }
 `;

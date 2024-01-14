@@ -1,17 +1,27 @@
 import React from "react";
 import { CardView, OrderDetailStyle } from "../container/OrderDetails.styled";
 import CommonButton from "components/common/commonButton/Button";
-import { Chip, Grid, Stack, Tooltip, Typography } from "@mui/material";
+import {
+  Chip,
+  Grid,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { ChipButton } from "components";
 import {
   AllPriceIcon,
   CompleteIcon,
   DateIconPlus,
+  DeleteIcon,
+  MinusIcon,
   PlusIcon,
   ProductPriceIcon,
   PromocodeIcon,
   TaxiIcon,
 } from "assets/svgs";
+import { AmountCalcBox, DeleteStyle } from "styles/global.style";
 
 const OrderDetail = () => {
   return (
@@ -83,13 +93,15 @@ const OrderDetail = () => {
       <Stack direction={"column"} spacing={2} mt={3}>
         <CardView>
           <Stack direction={"row"} spacing={2}>
-            <div className="image_box">
-              <img
-                src="https://sportcourt.ru/content/models/large/84988_959670.jpg"
-                alt="image"
-              />
-            </div>
-            <Stack direction={"column"} spacing={0.5} width={"80%"}>
+            <Stack width={"12%"}>
+              <div className="image_box">
+                <img
+                  src="https://sportcourt.ru/content/models/large/84988_959670.jpg"
+                  alt="image"
+                />
+              </div>
+            </Stack>
+            <Stack direction={"column"} spacing={0.5} width={"70%"}>
               <Tooltip
                 title="Толстовка короткая длина (Color: Grey, Size: L)"
                 placement="top-start"
@@ -98,11 +110,25 @@ const OrderDetail = () => {
                   Толстовка короткая длина (Color: Grey, Size: L)
                 </p>
               </Tooltip>
-              <p className="grey">150 000 uzs</p>
+              <p className="grey size-14">150 000 uzs</p>
+
               <Stack direction={"row"} spacing={2} alignItems={"center"}>
-                <CommonButton title="Add" sx={{ height: "28px !important" }} />
+                <AmountCalcBox>
+                  <IconButton className="buttonAmount">
+                    <MinusIcon />
+                  </IconButton>
+                  <span className="amount">1</span>
+                  <IconButton className="buttonAmount">
+                    <PlusIcon />
+                  </IconButton>
+                </AmountCalcBox>
                 <p>150 000 uzs</p>
               </Stack>
+            </Stack>
+            <Stack alignSelf={"center"} width={"12%"} alignItems={"flex-end"}>
+              <DeleteStyle>
+                <DeleteIcon />
+              </DeleteStyle>
             </Stack>
           </Stack>
         </CardView>

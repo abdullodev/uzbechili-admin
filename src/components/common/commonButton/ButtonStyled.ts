@@ -12,9 +12,7 @@ export const ButtonStyled = styled(Button)`
   padding: 0 18px !important;
   color: #000 !important;
   background-color: #fff !important;
-  line-height: 16px !important;
   font-weight: 500 !important;
-  font-family: Nunito !important;
 
   &:hover {
     color: #000 !important;

@@ -7,19 +7,7 @@ const Client = () => {
   const columns = useCustomerColumns();
   const { t } = useTranslation();
 
-  const renderHeader = (
-    <>
-      <Grid container width={200}>
-        <Grid item sm={12}>
-          <AutoCompleteFilter
-            optionsUrl="store/pagin/choose"
-            filterName="storeId"
-            placeholder={t("common.store")}
-          />
-        </Grid>
-      </Grid>
-    </>
-  );
+  const renderHeader = <></>;
 
   return (
     <>
