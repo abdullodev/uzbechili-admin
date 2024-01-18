@@ -88,12 +88,8 @@
   },
   "scripts": {
     "start": "env-cmd -f .env react-scripts start",
-    "build-dev": "CI=false && env-cmd -f env/.env.development react-scripts build",
-    "build-cardin": "CI=false && env-cmd -f env/.env.cardin react-scripts build",
-    "build-perfectbook": "CI=false && env-cmd -f env/.env.perfectbook react-scripts build",
-    "build-bizding": "CI=false && env-cmd -f env/.env.bizding react-scripts build",
-    "build-stroyon": "CI=false && env-cmd -f env/.env.stroyon react-scripts build",
-    "dev": "yarn run build && yarn run deploy",
+    "build": "env-cmd -f .env react-scripts build",
+    "deploy": "scp -r build root@37.27.24.36:/var/www/ozbechiliAdmin/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
