@@ -7,34 +7,22 @@ export const useProductColumns = (): GridColumns => {
 
   return [
     {
-      field: t("common.productName"),
+      field: "Product name",
       renderCell({ row }) {
         return get(row, "name", "");
       },
     },
     {
-      field: t("common.store"),
+      field: "Category",
       renderCell({ row }) {
-        return get(row, "store.name", "-");
+        return get(row, "category.name", "");
       },
     },
     {
-      field: t("common.price"),
+      field: "Price",
       renderCell({ row }) {
         return get(row, "price", "");
       },
     },
-    {
-      field: t("common.residue"),
-      renderCell({ row }) {
-        return get(row, "inStock", "");
-      },
-    },
-    // {
-    //   field: t("common.status"),
-    //   renderCell({ row }) {
-    //     return get(row, "status", "");
-    //   },
-    // },
   ];
 };

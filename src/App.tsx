@@ -29,13 +29,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!isAuth && !hasToken) {
-      // navigate("/login");
+      navigate("/login");
     }
   }, [isAuth]);
 
   useEffect(() => {
     if (pathname === "/login" && hasToken) {
-      // navigate("/");
+      navigate("/");
     }
   }, [pathname]);
 

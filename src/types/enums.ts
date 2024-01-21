@@ -87,8 +87,13 @@ interface ISettingsTabs {
 }
 export const SETTINGS_TABS: ISettingsTabs[] = [
   {
-    name: "Mijoz sayt sozlamalari",
-    key: "clientSettings",
+    name: "Delivery time",
+    key: "deliveryDays",
+    role: "_id",
+  },
+  {
+    name: "Delivery price",
+    key: "deliveryPrice",
     role: "_id",
   },
 ];
@@ -103,5 +108,43 @@ export const SHARE_FORM_STORE_OPTIONS = [
     _id: "amount",
     name: "Miqdor",
     trans_key: "amount",
+  },
+];
+
+export const product_size = [
+  {
+    _id: "S",
+    name: "S",
+  },
+  // {
+  //   _id: "M",
+  //   name: "M",
+  // },
+  {
+    _id: "L",
+    name: "L",
+  },
+  {
+    _id: "XL",
+    name: "XL",
+  },
+  {
+    _id: "XXL",
+    name: "XXL",
+  },
+];
+
+export const product_color = [
+  {
+    _id: "black",
+    name: "Qora",
+  },
+  {
+    _id: "white",
+    name: "Oq",
+  },
+  {
+    _id: "blue",
+    name: "Ko'k",
   },
 ];

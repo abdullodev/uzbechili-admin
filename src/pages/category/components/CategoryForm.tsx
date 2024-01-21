@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid, Switch } from "@mui/material";
 import { ImageInput, TextInput } from "components";
 import { UseFormReturn } from "react-hook-form";
 import { useApi, useApiMutation } from "hooks/useApi/useApiHooks";
@@ -8,58 +8,41 @@ import { useTranslation } from "react-i18next";
 interface IBranchForm {
   formStore: UseFormReturn<any>;
   resetForm: () => void;
-  editingCategoryId?: string;
-  setRender?: React.Dispatch<React.SetStateAction<boolean>>;
+  editingCategoryId?: Record<string, any>;
 }
 
 const CategoryForm: React.FC<IBranchForm> = ({
   formStore,
   resetForm,
   editingCategoryId,
-  setRender,
 }) => {
   const { t } = useTranslation();
-  const { control, handleSubmit, reset, setValue } = formStore;
+  const { control, handleSubmit, reset, setValue, watch, register } = formStore;
 
   const { mutate, status } = useApiMutation<any>(
-    editingCategoryId
-      ? `category/product/${editingCategoryId}`
-      : "category/product",
+    "category",
     editingCategoryId ? "put" : "post"
   );
 
-  const { data: getByIdData, status: getByIdStatus } = useApi(
-    `category/product/${editingCategoryId}`,
-    {},
-    {
-      enabled: !!editingCategoryId,
-      suspense: false,
-    }
-  );
-
   const sumbit = (data: any) => {
+    console.log(data);
+
     mutate({
       ...data,
-      imageId: data.imageId?._id,
-      _id: editingCategoryId,
     });
   };
 
   useEffect(() => {
     if (status === "success") {
       resetForm();
-      setRender?.(true);
     }
   }, [status]);
 
   useEffect(() => {
-    if (getByIdStatus === "success") {
-      reset({
-        name: getByIdData.data.name,
-        imageId: getByIdData.data.image,
-      });
+    if (editingCategoryId) {
+      reset(editingCategoryId);
     }
-  }, [getByIdStatus, getByIdData]);
+  }, [editingCategoryId]);
 
   return (
     <div className="custom-drawer">
@@ -68,15 +51,20 @@ const CategoryForm: React.FC<IBranchForm> = ({
           <Grid item md={12}>
             <TextInput name="name" control={control} label={t("common.name")} />
           </Grid>
-          {/* <Grid item md={12}>
-            <ImageInput
-              control={control}
-              setValue={setValue}
-              name="imageId"
-              rules={{ required: false }}
-              className="mb-3"
-            />
-          </Grid> */}
+          <Grid item md={12}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <label htmlFor="isSoon">Soon</label>
+              <Switch
+                checked={watch("isSoon")}
+                id="isSoon"
+                {...register("isSoon")}
+              />
+            </Box>
+          </Grid>
         </Grid>
       </form>
     </div>

@@ -9,7 +9,8 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 interface ILoginBody {
-  phoneNumber: string;
+  // phoneNumber: string;
+  login: string;
   password: string;
 }
 
@@ -20,16 +21,17 @@ const Login = () => {
   const { t } = useTranslation();
 
   const { mutate, status } = useApiMutation<ILoginBody, ILoginData>(
-    "auth/login",
+    "sign-in",
     "post",
     {
       onSuccess(data) {
-        dis(setLoginData(data.data));
+        console.log(data);
+        // dis(setLoginData(data.data));
         toast.success(t("general.success"));
-        localStorage.setItem("token", data.data.token);
-        localStorage.setItem("employeeId", data.data._id);
+        localStorage.setItem("token", data?.data!);
+        // localStorage.setItem("employeeId", data.data._id);
         localStorage.setItem("i18nextLng", "uz");
-        navigate("/store");
+        navigate("/order");
       },
     }
   );
@@ -44,12 +46,21 @@ const Login = () => {
         <h1>LOGIN</h1>
         <main>
           <span>
-            <PhoneInput
+            {/* <PhoneInput
               control={control}
               name="phoneNumber"
               label="Phone number"
               autofocus={true}
               rules={{ required: false }}
+            /> */}
+
+            <TextInput
+              control={control}
+              name="login"
+              type="text"
+              label="Login"
+              placeholder="Login"
+              rules={{ required: true }}
             />
           </span>
           <span>

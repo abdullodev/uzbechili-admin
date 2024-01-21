@@ -1,19 +1,19 @@
-import { DragTable, FormDrawer, Table } from "components";
-import { useCategoryCol, useCategoryColumns } from "./category.columns";
-import { useAppDispatch } from "store/storeHooks";
-import { setOpenDrawer } from "components/elements/FormDrawer/formdrawer.slice";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import CategoryForm from "../components/CategoryForm";
-import { useForm } from "react-hook-form";
+import { FormDrawer, Table } from "components";
 import WarningModal from "components/common/WarningModal/WarningModal";
+import { setOpenDrawer } from "components/elements/FormDrawer/formdrawer.slice";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "store/storeHooks";
+import CategoryForm from "../components/CategoryForm";
+import { useCategoryColumns } from "./category.columns";
+import { useNavigate } from "react-router-dom";
 
 const Category = () => {
-  const [render, setRender] = useState<boolean>(false);
   const columns = useCategoryColumns();
   const [editingCategoryId, setEditingCategoryId] = useState<any>();
   const [categoryId, setCategoryId] = useState<any>();
-  const columnsDrag = useCategoryCol({ setEditingCategoryId, setCategoryId });
+  const navigate = useNavigate();
   const dis = useAppDispatch();
   const { t } = useTranslation();
   const formStore = useForm<any>();
@@ -30,15 +30,17 @@ const Category = () => {
     <>
       <Table
         columns={columns}
-        dataUrl="category/product"
+        dataUrl="/categories"
         searchable
         onAddButton={() => dis(setOpenDrawer(true))}
         onEditColumn={(row) => {
-          setEditingCategoryId(row._id);
+          setEditingCategoryId(row);
           dis(setOpenDrawer(true));
         }}
-        title="Category"
+        onRowClick={(row) => navigate(`/category/${row._id}`)}
+        title="Categories"
         onDeleteColumn={(row) => setCategoryId(row._id)}
+        isGetAll
       />
 
       {/* <DragTable
@@ -53,8 +55,7 @@ const Category = () => {
       <WarningModal
         open={categoryId}
         setOpen={setCategoryId}
-        setRender={setRender}
-        url="category/product"
+        url={`category`}
       />
       <FormDrawer
         FORM_ID="category"
@@ -64,7 +65,6 @@ const Category = () => {
       >
         <CategoryForm
           formStore={formStore}
-          setRender={setRender}
           resetForm={resetForm}
           editingCategoryId={editingCategoryId}
         />

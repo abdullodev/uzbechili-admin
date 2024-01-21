@@ -26,6 +26,7 @@ export const AutoCompleteStyled = styled.div<any>`
     height: ${({ multiple }) => (multiple ? "auto" : "45px !important")};
     min-height: 45px;
     align-items: center;
+    line-height: 25px;
     border: none !important;
     .MuiOutlinedInput-input {
       padding-left: 1rem !important;

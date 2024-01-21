@@ -1,4 +1,6 @@
+import { IconButton } from "@mui/material";
 import { GridColumns } from "@mui/x-data-grid";
+import { AcceptIcon, CancelIcon } from "assets/svgs";
 import dayjs from "dayjs";
 import { get } from "lodash";
 import { useTranslation } from "react-i18next";
@@ -8,58 +10,57 @@ export const useOrderTableColumns = (): GridColumns => {
 
   return [
     {
-      field: t("common.number"),
+      field: "Order number",
       renderCell({ row }) {
-        return row.number;
+        return get(row, "orderNumber", "");
       },
     },
     {
-      field: t("common.price"),
+      field: "Phone number",
       renderCell({ row }) {
-        return row.totalPrice;
+        return get(row, "phoneNumber", "");
       },
     },
     {
-      field: t("common.store"),
+      field: "Order amount",
       renderCell({ row }) {
-        return get(row, "store.name", "-");
+        return get(row, "amount", "-");
       },
     },
     {
-      field: t("common.customer"),
+      field: "Order price",
       renderCell({ row }) {
-        return (
-          get(row, "customer.firstName", "") +
-          " " +
-          get(row, "customer.lastName", "")
-        );
+        return get(row, "price", "");
       },
       flex: 1.5,
     },
     {
-      field: t("common.phoneNumber"),
+      field: "Date",
       renderCell({ row }) {
-        return get(row, "customer.phoneNumber", "");
+        return dayjs(get(row, "date", "")).format("DD-MM-YYYY");
       },
     },
     {
-      field: t("common.receiverPhoneNumber"),
+      field: "Payment method",
       renderCell({ row }) {
-        return row.receiverCustomer?.phoneNumber;
+        return get(row, "paymentMethod", "");
       },
     },
     {
-      field: t("common.paymentType"),
+      field: "Action",
       renderCell({ row }) {
-        return t(`enum.${row.paymentType}`);
+        return (
+          <div className="order_action">
+            <IconButton className="cancel_order">
+              <CancelIcon />
+            </IconButton>
+            <IconButton className="accept_order">
+              <AcceptIcon />
+            </IconButton>
+          </div>
+        );
       },
       flex: 0.5,
-    },
-    {
-      field: t("common.time"),
-      renderCell({ row }) {
-        return dayjs(row.createdAt).format("DD.MM.YYYY HH:mm");
-      },
     },
   ];
 };

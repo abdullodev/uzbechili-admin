@@ -64,6 +64,7 @@ export const getTableColumns = <TData extends { _id: string }>({
                   e.stopPropagation();
                   onEditColumn(row.row);
                 }}
+                className="edit_table_btn"
               >
                 <EditIcon />
               </IconButton>
@@ -87,6 +88,7 @@ export const getTableColumns = <TData extends { _id: string }>({
                   e.stopPropagation();
                   onDeleteColumn(row.row);
                 }}
+                className="delete_table_btn"
               >
                 <DeleteIcon />
               </IconButton>

@@ -1,4 +1,6 @@
 import { GridColumns } from "@mui/x-data-grid";
+import { Tooltip } from "antd";
+import dayjs from "dayjs";
 import { get } from "lodash";
 import { useTranslation } from "react-i18next";
 
@@ -7,15 +9,36 @@ export const useBannerColumns = (): GridColumns => {
 
   return [
     {
-      field: t("common.name"),
+      field: "Banner name",
       renderCell({ row }) {
-        return row.title;
+        return row.name;
       },
     },
     {
-      field: t("common.store"),
+      field: "Created date",
       renderCell({ row }) {
-        return get(row, "store.name", "-");
+        return dayjs(get(row, "createdDate", "")).format("DD-MM-YYYY");
+      },
+    },
+    {
+      field: "Note",
+      renderCell({ row }) {
+        return (
+          <Tooltip
+            title={
+              <div
+                dangerouslySetInnerHTML={{ __html: get(row, "note", "-") }}
+              ></div>
+            }
+            color="cyan"
+          >
+            <div
+              dangerouslySetInnerHTML={{
+                __html: get(row, "note", "-").slice(0, 16),
+              }}
+            ></div>
+          </Tooltip>
+        );
       },
     },
   ];

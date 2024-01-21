@@ -8,8 +8,9 @@ import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useRoleManager } from "services/useRoleManager";
 import { SETTINGS_TABS } from "types/enums";
-import ClientSiteSettings from "../components/ClientSiteSettings";
+import DeliveryDays from "../components/DeliveryDays";
 import { SettingsStyled } from "./Settings.styled";
+import DeliveryPrice from "../components/DeliveryPrice";
 
 const Settings = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,6 +23,7 @@ const Settings = () => {
     setActiveTab(tab.key);
     setSearchParams({ tab: tab.key });
   };
+
   return (
     <SettingsStyled>
       <Grid container spacing={3}>
@@ -45,13 +47,20 @@ const Settings = () => {
             })}
           </div>
         </Grid>
-        <Grid item sm={9}>
-          {activeTab === "clientSettings" && (
+        {activeTab === "deliveryDays" && (
+          <Grid item sm={9}>
             <div className="settings">
-              <ClientSiteSettings />
+              <DeliveryDays />
             </div>
-          )}
-        </Grid>
+          </Grid>
+        )}
+        {activeTab === "deliveryPrice" && (
+          <Grid item sm={9}>
+            <div className="settings">
+              <DeliveryPrice />
+            </div>
+          </Grid>
+        )}
       </Grid>
     </SettingsStyled>
   );

@@ -613,3 +613,45 @@
 .size-14 {
   font-size: 14px;
 }
+
+.delete_table_btn {
+  background-color: #d03636 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+}
+
+.delete_table_btn svg path {
+  fill: #fff !important;
+}
+
+.edit_table_btn {
+  background-color: #3e5189 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+}
+
+.edit_table_btn svg path {
+  fill: #fff !important;
+}
+
+.order_action {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.order_action .cancel_order {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background-color: #d03636;
+}
+
+.order_action .accept_order {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background-color: #3e5189;
+}

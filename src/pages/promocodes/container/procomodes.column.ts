@@ -1,40 +1,42 @@
 import { GridColumns } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 import { get } from "lodash";
 import { useTranslation } from "react-i18next";
+import { numberFormat } from "utils/numberFormat";
 
 export const usePromocodesColumns = (): GridColumns => {
   const { t } = useTranslation();
 
   return [
     {
-      field: t("common.productName"),
+      field: "Promocode name",
       renderCell({ row }) {
         return get(row, "name", "");
       },
     },
     {
-      field: t("common.store"),
+      field: "Amount",
       renderCell({ row }) {
-        return get(row, "store.name", "-");
+        return numberFormat(get(row, "amount", "0"));
       },
     },
     {
-      field: t("common.price"),
+      field: "From date",
       renderCell({ row }) {
-        return get(row, "price", "");
+        return dayjs(get(row, "fromDate")).format("DD-MM-YYYY");
       },
     },
     {
-      field: t("common.residue"),
+      field: "To date",
       renderCell({ row }) {
-        return get(row, "inStock", "");
+        return dayjs(get(row, "toDate")).format("DD-MM-YYYY");
       },
     },
-    // {
-    //   field: t("common.status"),
-    //   renderCell({ row }) {
-    //     return get(row, "status", "");
-    //   },
-    // },
+    {
+      field: "Using amount",
+      renderCell({ row }) {
+        return numberFormat(get(row, "useAmount", ""));
+      },
+    },
   ];
 };

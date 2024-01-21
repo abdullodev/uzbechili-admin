@@ -21,8 +21,8 @@ const Banner = () => {
   const resetForm = () => {
     setEditingBannerId(undefined);
     formStore.reset({
-      title: "",
-      imageId: "",
+      name: "",
+      imageUrl: "",
       description: "",
     });
   };
@@ -35,10 +35,11 @@ const Banner = () => {
         searchable
         onAddButton={() => dis(setOpenDrawer(true))}
         onEditColumn={(row) => {
-          setEditingBannerId(row._id);
+          setEditingBannerId(row);
           dis(setOpenDrawer(true));
         }}
         title="Banners"
+        isGetAll
         onDeleteColumn={(row) => setBannerId(row._id)}
       />
       <WarningModal open={bannerId} setOpen={setBannerId} url="banner" />

@@ -62,7 +62,7 @@ const TableHeader: React.FC<{
           {headerChildren}
           {onAddButton ? (
             <MainButton
-              title={addButtonTitle || t("general.add")}
+              title={addButtonTitle || "Create"}
               variant="contained"
               onClick={() => {
                 onAddButton?.();

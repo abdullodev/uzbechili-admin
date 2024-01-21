@@ -27,18 +27,20 @@ export const TextInputStyled = styled.div<ITextInputStyled>`
     z-index: 1;
   }
   input {
-    height: 45px !important;
-    padding: ${({ searchIcon }) => (searchIcon ? "0 40px 0 12px" : "0 12px")};
+    height: 45px;
+    padding: ${({ searchIcon }) =>
+      searchIcon ? "0 40px 0 12px" : "0 12px"} !important;
     border: none;
     font-size: 15px;
     font-weight: 500;
     border-radius: 10px;
+    background-color: aqua;
     background-color: #fff;
+    line-height: 50px;
 
     &::placeholder {
       font-weight: 400;
       font-size: 14px;
-      line-height: 20px;
       color: #8e8ea9;
     }
   }
@@ -48,11 +50,9 @@ export const TextInputStyled = styled.div<ITextInputStyled>`
   }
   .MuiFormControl-root {
     min-height: 45px;
-    border: none;
     font-size: 14px;
     font-weight: 600;
     border-radius: 10px;
-    background-color: #fff;
     border: 1px solid #d9d9d9;
   }
 `;

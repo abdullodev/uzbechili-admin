@@ -1,20 +1,14 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
 import { Box, Grid, Switch } from "@mui/material";
-import {
-  AutoCompleteForm,
-  DatePickerForm,
-  ImageInput,
-  SelectForm,
-  TextInput,
-} from "components";
-import { useApiMutation } from "hooks/useApi/useApiHooks";
-import { useTranslation } from "react-i18next";
-import { get } from "lodash";
-import { ProductFormStyled } from "./ProductForm.styled";
-import TextEditor from "components/form/TextEditor/TextEditor";
-import { IIdImage } from "hooks/usePostImage";
 import { DeleteIcon } from "assets/svgs";
-import { DISCOUNT_TYPES } from "types/enums";
+import { AutoCompleteForm, ImageInput, TextInput } from "components";
+import TextEditor from "components/form/TextEditor/TextEditor";
+import { useApi, useApiMutation } from "hooks/useApi/useApiHooks";
+import { IIdImage } from "hooks/usePostImage";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { product_color, product_size } from "types/enums";
+import { ProductFormStyled } from "./ProductForm.styled";
+import { get } from "lodash";
 
 interface IProductForm {
   formStore: any;
@@ -41,21 +35,28 @@ const ProductForm = ({
   const { t } = useTranslation();
 
   const { mutate, status } = useApiMutation<any>(
-    editingProduct ? `product/${editingProduct?._id}` : "product",
+    "product",
     editingProduct ? "put" : "post"
   );
 
   const sumbit = (data: any) => {
     const requestData = {
       ...data,
-      imageIds: productImages.map((image) => image._id),
-      mainImageId,
-      discountStartAt: data.discountStartAt?.toISOString(),
-      discountEndAt: data.discountEndAt?.toISOString(),
-      _id: editingProduct?._id,
+      imageUrls: productImages.map((image) => image),
     };
+
     mutate(requestData);
   };
+
+  const { data: getByIdData, status: getByIdStatus } = useApi(
+    `product/${editingProduct?._id}`,
+    {},
+    {
+      enabled: !!editingProduct?._id,
+    }
+  );
+
+  console.log(getByIdData);
 
   useEffect(() => {
     if (status === "success") {
@@ -64,13 +65,17 @@ const ProductForm = ({
   }, [status]);
 
   useEffect(() => {
-    if (editingProduct) {
+    if (getByIdStatus === "success") {
       reset({
-        ...editingProduct,
-        categoryId: editingProduct.category?._id,
+        ...get(getByIdData, "data", {}),
+        categoryId: get(getByIdData, "data.category._id", ""),
+        subCategoryId: get(getByIdData, "data.subCategory._id", ""),
       });
+      setProductImages(get(getByIdData, "data.imageUrls", []));
     }
-  }, [editingProduct]);
+  }, [getByIdStatus, getByIdData]);
+
+  console.log(productImages);
 
   return (
     <ProductFormStyled className="custom-drawer">
@@ -81,7 +86,7 @@ const ProductForm = ({
               <ImageInput
                 control={control}
                 setValue={setValue}
-                name="imageUrl"
+                name="imageUrls"
                 rules={{ required: false }}
                 multiple
                 getImage={(img) => setProductImages((prev) => [...prev, img])}
@@ -89,7 +94,7 @@ const ProductForm = ({
               {productImages?.map((image) => (
                 <div className="product-image" key={image._id}>
                   <img
-                    src={process.env.REACT_APP_BASE_URL + image.url}
+                    src={process.env.REACT_APP_BASE_URL! + image}
                     alt="product"
                   />
                   <div className="on-hover">
@@ -130,11 +135,40 @@ const ProductForm = ({
             />
           </Grid>
           <Grid item md={12}>
-            <TextInput
-              name="inStock"
+            <AutoCompleteForm
               control={control}
+              name="categoryId"
+              optionsUrl="categories"
+              label={"Category"}
+            />
+          </Grid>
+          {watch("categoryId") && (
+            <Grid item md={12}>
+              <AutoCompleteForm
+                control={control}
+                name="subCategoryId"
+                optionsUrl={`categories/${watch("categoryId")}`}
+                label={"Sub Category"}
+                // multiple
+              />
+            </Grid>
+          )}
+          <Grid item md={12}>
+            <AutoCompleteForm
+              control={control}
+              name="sizes"
+              options={product_size}
+              label={"Size"}
+              multiple
+            />
+          </Grid>
+          <Grid item md={12}>
+            <AutoCompleteForm
+              control={control}
+              name="color"
+              options={product_color}
               label={"Color"}
-              type="text"
+              multiple
             />
           </Grid>
           <Grid item md={12}>
@@ -152,49 +186,13 @@ const ProductForm = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <label htmlFor="discountEnabled">{t("common.discount")}</label>
+              <label htmlFor="hasDiscount">{t("common.discount")}</label>
               <Switch
-                checked={watch("discountEnabled")}
-                id="discountEnabled"
-                {...register("discountEnabled")}
+                checked={watch("hasDiscount")}
+                id="hasDiscount"
+                {...register("hasDiscount")}
               />
             </Box>
-            {watch("discountEnabled") && (
-              <Grid container spacing={2} alignItems="end">
-                <Grid item md={6}>
-                  <TextInput
-                    control={control}
-                    name="discountValue"
-                    label={t("common.discountValue")}
-                    type="number"
-                  />
-                </Grid>
-                <Grid item md={6}>
-                  <SelectForm
-                    control={control}
-                    name="discountType"
-                    options={DISCOUNT_TYPES}
-                    label={t("common.type")}
-                  />
-                </Grid>
-                <Grid item md={6}>
-                  <DatePickerForm
-                    control={control}
-                    name="discountStartAt"
-                    disableTime={true}
-                    label={t("common.discountStartAt")}
-                  />
-                </Grid>
-                <Grid item md={6}>
-                  <DatePickerForm
-                    control={control}
-                    name="discountEndAt"
-                    disableTime={true}
-                    label={t("common.discountEndAt")}
-                  />
-                </Grid>
-              </Grid>
-            )}
           </Grid>
         </Grid>
       </form>

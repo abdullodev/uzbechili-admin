@@ -16,7 +16,7 @@ const usePostImage = (onSuccess?: (idImage: IIdImage) => void) => {
     setIsUploading(true);
     if (image.imageFile) {
       axios({
-        url: `${process.env.REACT_APP_BASE_URL}image/upload`,
+        url: `${process.env.REACT_APP_BASE_URL}upload-file`,
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -27,10 +27,8 @@ const usePostImage = (onSuccess?: (idImage: IIdImage) => void) => {
           type: "img",
         },
       }).then((res) => {
-        const IDImage = {
-          url: res.data.data.url,
-          _id: res.data.data._id,
-        };
+        console.log(res);
+        const IDImage = res.data.data;
         onSuccess?.(IDImage);
         setImage(IDImage);
         setIsUploading(false);

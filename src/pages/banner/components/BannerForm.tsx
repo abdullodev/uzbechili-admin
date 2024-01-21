@@ -8,7 +8,7 @@ import TextEditor from "components/form/TextEditor/TextEditor";
 
 interface IEmployeesForm {
   formStore: UseFormReturn<any>;
-  editingBannerId: string;
+  editingBannerId: Record<string, any>;
   resetForm: () => void;
 }
 const BannerForm: FC<IEmployeesForm> = ({
@@ -20,17 +20,8 @@ const BannerForm: FC<IEmployeesForm> = ({
   const { control, handleSubmit, reset, watch, setValue } = formStore;
 
   const { mutate, status } = useApiMutation(
-    editingBannerId ? `banner/${editingBannerId}` : "banner",
+    "banner",
     editingBannerId ? "put" : "post"
-  );
-
-  const { data: getByIdData, status: getByIdStatus } = useApi(
-    `banner/${editingBannerId}`,
-    {},
-    {
-      enabled: !!editingBannerId,
-      suspense: false,
-    }
   );
 
   useEffect(() => {
@@ -43,38 +34,35 @@ const BannerForm: FC<IEmployeesForm> = ({
     mutate({
       _id: editingBannerId,
       ...data,
-      imageId: data.imageId?._id,
+      imageUrl: data.imageUrl?.url,
     });
   };
 
   useEffect(() => {
-    if (getByIdStatus === "success") {
-      reset({
-        title: getByIdData.data.title,
-        imageId: getByIdData.data.image,
-        description: getByIdData.data.description,
-        storeId: getByIdData.data.storeId,
-      });
+    if (editingBannerId) {
+      console.log(editingBannerId);
+      reset(editingBannerId);
+      setValue("imageUrl", { url: editingBannerId.imageUrl });
     }
-  }, [getByIdStatus, getByIdData]);
+  }, [editingBannerId]);
 
   return (
     <div className="custom-drawer">
       <form id="banner" onSubmit={handleSubmit(submit)}>
         <Grid container spacing={2}>
           <Grid item md={12}>
-            <TextInput control={control} name="title" label={"Banner name"} />
+            <TextInput control={control} name="name" label={"Banner name"} />
           </Grid>
           <Grid item md={12}>
             <TextEditor
-              value={watch("description")}
+              value={watch("note")}
               onChange={(value) => {
-                setValue("description", value);
+                setValue("note", value);
               }}
             />
           </Grid>
           <Grid item md={12}>
-            <ImageInput control={control} setValue={setValue} name="imageId" />
+            <ImageInput control={control} setValue={setValue} name="imageUrl" />
             <div className="d-flex justify-content-between mt-3">
               <span>O'lcham</span>
               <span>1080(px) - 250(px)</span>

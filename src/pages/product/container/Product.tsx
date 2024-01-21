@@ -15,6 +15,7 @@ const Client = () => {
   const { t } = useTranslation();
   const formStore = useForm();
   const [editingProduct, setEditingProduct] = useState();
+  const [productId, setProductId] = useState<string>("");
   const [productImages, setProductImages] = useState<IIdImage[]>([]);
   const [mainImageId, setMainImageId] = useState<any>();
 
@@ -50,6 +51,11 @@ const Client = () => {
         exQueryParams={{
           isActive: formStore.watch("isActive") || undefined,
         }}
+        onEditColumn={(row) => {
+          dis(setOpenDrawer(true));
+          setEditingProduct(row);
+        }}
+        onDeleteColumn={(row) => setProductId(row._id)}
       />
       <FormDrawer
         FORM_ID="product"

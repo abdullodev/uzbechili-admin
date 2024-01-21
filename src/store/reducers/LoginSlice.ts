@@ -53,15 +53,7 @@ const initialState = {
     stateMap: false,
     transaction: false,
   },
-  loginData: {
-    _id: "",
-    firstName: "",
-    lastName: "",
-    number: "",
-    phoneNumber: "",
-    createdAt: "",
-    token: "",
-  },
+  loginData: "",
 };
 
 const LoginSlice = createSlice({

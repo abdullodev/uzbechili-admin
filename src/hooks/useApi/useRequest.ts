@@ -48,7 +48,7 @@ export const useRequest = <
         "http://localhost:50000/api/Identification/DataFromService"
       );
       if (res.status === 401) {
-        // navigate("/login");
+        navigate("/login");
       }
       setData(res?.data);
       setStatus(REQUEST_STATUS.success);

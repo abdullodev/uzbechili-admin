@@ -26,7 +26,7 @@ export default function useBeforeUnload(message: string) {
 
   function confirmNavigation() {
     setDirty(false);
-    // navigate(-1);
+    navigate(-1);
   }
 
   return [prompt, confirmNavigation];

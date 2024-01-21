@@ -7,7 +7,6 @@ interface IMainBtnStyled {
 
 export const StyledButton = styled(Button)<IMainBtnStyled>((props) => ({
   height: "46px",
-  fontFamily: "'Inter', sans-serif !important",
   fontWeight: "600 !important",
   fontSize: "15px !important",
   borderRadius: "12px !important",

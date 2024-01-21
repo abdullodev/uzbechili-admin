@@ -32,13 +32,13 @@ const Table = <TData extends { _id: string }>({
   columns,
   title,
   exQueryParams = {},
-  tableHeight = "calc(100vh - 238px)",
   searchable = false,
   deletable = false,
   selection = deletable ? true : false,
   hasPagination = true,
   numerate = true,
   isGetAll = false,
+  tableHeight = isGetAll ? "calc(100vh - 170px)" : "calc(100vh - 238px)",
   addButtonTitle,
   noRerender,
 
@@ -127,11 +127,11 @@ const Table = <TData extends { _id: string }>({
   }, [socketRender]);
 
   /** @constant memorize fetched data */
-  const tableData: TData[] = React.useMemo(() => {
-    const dataKey: any[] = isGetAll ? get(data, "data", []) : data?.data?.data;
+  const tableData: any[] = React.useMemo(() => {
+    const dataKey: any = isGetAll ? get(data, "data", []) : data?.data?.data;
     if (isGetAll && searchable && search) {
       return dataKey?.filter(
-        (item) =>
+        (item: any) =>
           item?.firstName?.toLowerCase()?.includes(search) ||
           item?.lastName?.toLowerCase()?.includes(search) ||
           item?.name?.toLowerCase()?.includes(search) ||

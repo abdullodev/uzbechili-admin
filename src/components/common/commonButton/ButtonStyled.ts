@@ -13,6 +13,7 @@ export const ButtonStyled = styled(Button)`
   color: #000 !important;
   background-color: #fff !important;
   font-weight: 500 !important;
+  line-height: 50px !important;
 
   &:hover {
     color: #000 !important;
