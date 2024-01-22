@@ -2,26 +2,19 @@
 /* Require Editor CSS files. */
 @import url("froala-editor/css/froala_style.min.css");
 @import url("froala-editor/css/froala_editor.pkgd.min.css");
-* {
-  font-family: Nunito !important;
-  font-weight: 300 !important;
-}
 
 body {
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: Nunito !important;
-  font-weight: 300 !important;
+  font-family: "Nunito", "Open Sans" !important;
 }
 
 @font-face {
-  font-family: Nunito;
+  font-family: "Nunito";
   src: url("../font/Nunito-ExtraLight.ttf");
 }
 
 @font-face {
-  font-family: Nunito;
+  font-family: "Nunito";
   src: url("../font/Nunito-Medium.ttf");
 }
 

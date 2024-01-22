@@ -12,7 +12,6 @@ export const TextInputStyled = styled.div<ITextInputStyled>`
   label {
     font-weight: 500;
     font-size: 14px;
-    line-height: 16px;
     color: #32324d;
     padding: 5px 0;
     span {
@@ -34,9 +33,7 @@ export const TextInputStyled = styled.div<ITextInputStyled>`
     font-size: 15px;
     font-weight: 500;
     border-radius: 10px;
-    background-color: aqua;
     background-color: #fff;
-    line-height: 50px;
 
     &::placeholder {
       font-weight: 400;

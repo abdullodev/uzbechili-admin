@@ -105,14 +105,16 @@ const PromocodeForm: FC<IPromocodeForm> = ({
             />
           </Box>
         </Grid>
-        <Grid item xs={12}>
-          <TextInput
-            control={control}
-            type="number"
-            name="useAmount"
-            label={"Using amount"}
-          />
-        </Grid>
+        {!watch("infiniteUse") && (
+          <Grid item xs={12}>
+            <TextInput
+              control={control}
+              type="number"
+              name="useAmount"
+              label={"Using amount"}
+            />
+          </Grid>
+        )}
       </Grid>
     </form>
   );
