@@ -53,7 +53,7 @@ const OrderDetails = () => {
           get(order, "customer.firstName", "") +
           " " +
           get(order, "customer.lastName", ""),
-        phoneNumber: order?.customer.phoneNumber,
+        phoneNumber: order?.customer?.phoneNumber,
         paymentType: order?.paymentType,
         houseNumber: order?.houseNumber,
         entrance: order?.entrance,

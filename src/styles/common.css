@@ -648,10 +648,16 @@
   border-radius: 10px;
   background-color: #d03636;
 }
+.order_action .cancel_order:hover {
+  background-color: #d03636;
+}
 
 .order_action .accept_order {
   width: 32px;
   height: 32px;
   border-radius: 10px;
+  background-color: #3e5189;
+}
+.order_action .accept_order:hover {
   background-color: #3e5189;
 }

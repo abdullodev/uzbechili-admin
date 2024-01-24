@@ -88,7 +88,12 @@ const Table = <TData extends { _id: string }>({
     },
     {
       onSuccess(data) {
-        const tableData = isGetAll ? get(data, "data", []) : data?.data?.data;
+        const tableData =
+          dataUrl === "order/pagin"
+            ? get(data, "data.data.data", [])
+            : isGetAll
+            ? get(data, "data", [])
+            : data?.data?.data;
         onDataChange?.(tableData);
         getAllData?.(data?.data);
         if (data?.data?.total > 0 && data?.data?.data?.length === 0) {
@@ -128,7 +133,12 @@ const Table = <TData extends { _id: string }>({
 
   /** @constant memorize fetched data */
   const tableData: any[] = React.useMemo(() => {
-    const dataKey: any = isGetAll ? get(data, "data", []) : data?.data?.data;
+    const dataKey: any =
+      dataUrl === "order/pagin"
+        ? get(data, "data.data.data", [])
+        : isGetAll
+        ? get(data, "data", [])
+        : data?.data?.data;
     if (isGetAll && searchable && search) {
       return dataKey?.filter(
         (item: any) =>

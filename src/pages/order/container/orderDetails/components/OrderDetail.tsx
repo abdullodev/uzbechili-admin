@@ -14,14 +14,14 @@ import {
   AllPriceIcon,
   CompleteIcon,
   DateIconPlus,
-  DeleteIcon,
-  MinusIcon,
+  // DeleteIcon,
+  // MinusIcon,
   PlusIcon,
   ProductPriceIcon,
   PromocodeIcon,
   TaxiIcon,
 } from "assets/svgs";
-import { AmountCalcBox, DeleteStyle } from "styles/global.style";
+// import { AmountCalcBox, DeleteStyle } from "styles/global.style";
 
 const OrderDetail = () => {
   return (
@@ -112,7 +112,7 @@ const OrderDetail = () => {
               </Tooltip>
               <p className="grey size-14">150 000 uzs</p>
 
-              <Stack direction={"row"} spacing={2} alignItems={"center"}>
+              {/* <Stack direction={"row"} spacing={2} alignItems={"center"}>
                 <AmountCalcBox>
                   <IconButton className="buttonAmount">
                     <MinusIcon />
@@ -123,13 +123,13 @@ const OrderDetail = () => {
                   </IconButton>
                 </AmountCalcBox>
                 <p>150 000 uzs</p>
-              </Stack>
+              </Stack> */}
             </Stack>
-            <Stack alignSelf={"center"} width={"12%"} alignItems={"flex-end"}>
+            {/* <Stack alignSelf={"center"} width={"12%"} alignItems={"flex-end"}>
               <DeleteStyle>
                 <DeleteIcon />
               </DeleteStyle>
-            </Stack>
+            </Stack> */}
           </Stack>
         </CardView>
       </Stack>

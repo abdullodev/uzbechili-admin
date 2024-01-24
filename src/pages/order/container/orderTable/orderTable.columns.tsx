@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { Chip, IconButton } from "@mui/material";
 import { GridColumns } from "@mui/x-data-grid";
 import { AcceptIcon, CancelIcon } from "assets/svgs";
 import dayjs from "dayjs";
@@ -12,38 +12,38 @@ export const useOrderTableColumns = (): GridColumns => {
     {
       field: "Order number",
       renderCell({ row }) {
-        return get(row, "orderNumber", "");
+        return get(row, "uuid", "");
       },
     },
     {
       field: "Phone number",
       renderCell({ row }) {
-        return get(row, "phoneNumber", "");
+        return get(row, "receiverPhoneNumber", "-");
       },
     },
     {
       field: "Order amount",
       renderCell({ row }) {
-        return get(row, "amount", "-");
+        return get(row, "itemsCount", 1);
       },
     },
     {
       field: "Order price",
       renderCell({ row }) {
-        return get(row, "price", "");
+        return get(row, "totalCalculatedPrice", "");
       },
       flex: 1.5,
     },
     {
       field: "Date",
       renderCell({ row }) {
-        return dayjs(get(row, "date", "")).format("DD-MM-YYYY");
+        return dayjs(get(row, "createdAt", "")).format("DD-MM-YYYY");
       },
     },
     {
       field: "Payment method",
       renderCell({ row }) {
-        return get(row, "paymentMethod", "");
+        return <Chip label={get(row, "paymentMethod", "")} color="primary" />;
       },
     },
     {
@@ -60,7 +60,7 @@ export const useOrderTableColumns = (): GridColumns => {
           </div>
         );
       },
-      flex: 0.5,
+      flex: 0.8,
     },
   ];
 };

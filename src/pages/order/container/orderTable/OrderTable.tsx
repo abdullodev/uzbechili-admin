@@ -74,6 +74,9 @@ const OrderTable = () => {
         headerChildren={renderHeader}
         headerChildrenSecond={renderHeaderSecond}
         searchable
+        exQueryParams={{
+          state: "new",
+        }}
         onRowClick={(row) => navigate(`/order/${row._id}`)}
         tableHeight={"calc(100vh - 295px)"}
       />
