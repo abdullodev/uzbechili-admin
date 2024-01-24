@@ -24,6 +24,9 @@ export const OrderDetailStyle = styled(Box)`
 
 export const CardView = styled(Box)`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 
   .image_box {
     width: 100%;

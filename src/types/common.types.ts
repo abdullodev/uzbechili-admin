@@ -70,3 +70,25 @@ export interface ILocation {
   latitude: number;
   longitude: number;
 }
+
+export const REGIONS = [
+  {
+    _id: "toshkent",
+    name: "Toshkent",
+  },
+];
+
+export const DISTRICTS = [
+  {
+    _id: "yashnabod",
+    name: "Yashnabod",
+  },
+  {
+    _id: "chilonzor",
+    name: "Chilonzor",
+  },
+  {
+    _id: "yunusobod",
+    name: "Yunusobod",
+  },
+];

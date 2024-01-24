@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  font-family: "Nunito", "Open Sans" !important;
+  /* font-family: "Nunito", "Open Sans" !important; */
 }
 
 @font-face {
@@ -81,7 +81,12 @@ a {
     margin-top: 0.5cm;
   } */
 }
-
+.color-blue {
+  color: #00afff;
+}
+.realy_cancel {
+  color: #ed4337;
+}
 .froala-editor-container .fr-second-toolbar a {
   visibility: hidden;
 }

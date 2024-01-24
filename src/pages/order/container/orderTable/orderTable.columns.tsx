@@ -3,9 +3,13 @@ import { GridColumns } from "@mui/x-data-grid";
 import { AcceptIcon, CancelIcon } from "assets/svgs";
 import dayjs from "dayjs";
 import { get } from "lodash";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
-export const useOrderTableColumns = (): GridColumns => {
+export const useOrderTableColumns = (
+  setCancelOrder: React.Dispatch<React.SetStateAction<any>>,
+  setAcceptOrder: React.Dispatch<React.SetStateAction<any>>
+): GridColumns => {
   const { t } = useTranslation();
 
   return [
@@ -51,10 +55,22 @@ export const useOrderTableColumns = (): GridColumns => {
       renderCell({ row }) {
         return (
           <div className="order_action">
-            <IconButton className="cancel_order">
+            <IconButton
+              className="cancel_order"
+              onClick={(e: any) => {
+                e.stopPropagation();
+                setCancelOrder(row);
+              }}
+            >
               <CancelIcon />
             </IconButton>
-            <IconButton className="accept_order">
+            <IconButton
+              className="accept_order"
+              onClick={(e: any) => {
+                e.stopPropagation();
+                setAcceptOrder(row);
+              }}
+            >
               <AcceptIcon />
             </IconButton>
           </div>

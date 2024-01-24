@@ -7,6 +7,7 @@ export const TableContainerMain = styled.div<{ tableHeight?: string }>`
   padding: 20px 20px 0 20px;
   border-radius: 12px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.07);
+  overflow: auto !important;
 
   .MuiDataGrid-columnSeparator {
     display: none !important;
@@ -29,7 +30,7 @@ export const TableContainerMain = styled.div<{ tableHeight?: string }>`
     border: 0;
     color: #232323 !important;
     font-weight: 500;
-    overflow-x: auto;
+    overflow: auto !important;
   }
   .MuiDataGrid-virtualScroller {
     &::-webkit-scrollbar {
