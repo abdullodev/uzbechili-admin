@@ -33,22 +33,16 @@ const OrderDetails = () => {
   );
   const order = data?.data;
 
-  const { mutate: updateState } = useApiMutation(
-    `order/state/${order?._id}`,
-    "put",
-    {
-      onSuccess() {
-        refetch();
-        toast.success(t("general.success"));
-      },
-    }
-  );
-
-  const { mutate } = useApiMutation(`order/${id}`, "put");
+  const { mutate, status: orderStatus } = useApiMutation(`order`, "put", {
+    onSuccess() {
+      refetch();
+      acceptOrder && setAcceptOrder(false);
+      cancelOrder && setCancelOrder(false);
+    },
+  });
 
   useEffect(() => {
     if (status === "success") {
-      setValue("items", order?.items);
       reset({
         receiverName: order?.receiverName,
         receiverPhoneNumber: order?.receiverPhoneNumber,
@@ -61,29 +55,51 @@ const OrderDetails = () => {
         floor: get(order, "client.address.floor", ""),
         flatNumber: get(order, "client.address.flatNumber", ""),
         about: get(order, "client.address.about", ""),
+        initialPayment: get(order, "initialPayment", ""),
       });
-      setTimeout(() => setValue("comment", order?.comment), 0);
     }
   }, [status]);
 
   const submit = handleSubmit((data: any) => {
     const requestData = {
-      ...data,
-      items: data.items?.map((e: any) => ({
-        productId: e.productId,
-        amount: e.amount,
-      })),
+      _id: get(order, "_id", ""),
+      receiverName: get(data, "receiverName", ""),
+      receiverPhoneNumber: get(data, "receiverPhoneNumber", ""),
+      address: {
+        region: get(data, "region", ""),
+        district: get(data, "district", ""),
+        address: get(data, "address", ""),
+        postIndex: get(data, "postIndex", ""),
+        homeNumber: get(data, "homeNumber", ""),
+        entrance: get(data, "entrance", ""),
+        floor: get(data, "floor", ""),
+        flatNumber: get(data, "flatNumber", ""),
+        about: get(data, "about", ""),
+      },
     };
 
-    console.log(requestData);
-    // mutate(requestData);
+    mutate(requestData);
   });
 
   const handleAcceptOrder = (data: any) => {
-    console.log("first");
+    const requestData = {
+      ...data,
+      _id: order._id,
+      state: "inProgress",
+    };
+
+    mutate(requestData);
   };
 
-  const handleCancelOrder = () => {};
+  const handleCancelOrder = () => {
+    const requestData = {
+      _id: order._id,
+      state: "cancelled",
+    };
+
+    mutate(requestData);
+  };
+
   return (
     <OrderDetailsStyled>
       <Grid container spacing={"20px"}>
@@ -92,6 +108,7 @@ const OrderDetails = () => {
             order={order}
             setCancelOrder={setCancelOrder}
             setAcceptOrder={setAcceptOrder}
+            mutate={mutate}
           />
         </Grid>
         <Grid item xs={5}>
@@ -99,6 +116,7 @@ const OrderDetails = () => {
             formStore={formStore}
             submit={submit}
             order={order}
+            orderStatus={orderStatus}
           />
         </Grid>
       </Grid>
@@ -124,8 +142,14 @@ const OrderDetails = () => {
         <h1 className="realy_cancel text-center">Cancel</h1>
         <h2>
           Rosdan ham{" "}
-          <code className="color-blue">#{get(order, "uuid", 0)}</code>{" "}
-          buyurtmani bekor qilmoqchimisiz?
+          <code className="color-blue">
+            #
+            {get(order, "uuid", 0) +
+              " raqamli buyurtmani " +
+              get(order, "receiverPhoneNumber", "") +
+              " dan"}{" "}
+          </code>{" "}
+          bekor qilmoqchimisiz?
         </h2>
       </Modal>
 
@@ -141,14 +165,17 @@ const OrderDetails = () => {
             key="submit"
             type="primary"
             htmlType="submit"
+            form="accept_order"
             // loading={loading}
-            onClick={acceptFormStore.handleSubmit(handleAcceptOrder)}
           >
             Save
           </Button>,
         ]}
       >
-        <form>
+        <form
+          onSubmit={acceptFormStore.handleSubmit(handleAcceptOrder)}
+          id="accept_order"
+        >
           <Space direction="vertical">
             <Space size={"middle"}>
               <div className="px-2">
@@ -162,7 +189,7 @@ const OrderDetails = () => {
             <Space>
               <TextInput
                 control={acceptFormStore.control}
-                name="acceptPrice"
+                name="initialPayment"
                 label={"Miqdor"}
                 type="number"
               />

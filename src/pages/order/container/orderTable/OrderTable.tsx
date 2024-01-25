@@ -11,38 +11,87 @@ import { useNavigate } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import CommonButton from "components/common/commonButton/Button";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, Modal, Space } from "antd";
 import { get } from "lodash";
 import { useForm } from "react-hook-form";
+import { useApi, useApiMutation } from "hooks/useApi/useApiHooks";
+import { useAppDispatch, useAppSelector } from "store/storeHooks";
+import { reRenderTable } from "components/elements/Table/reducer/table.slice";
 
-const filterTab = [
+const defaultTab = [
   {
-    title: "New (10)",
+    title: "New",
     value: "new",
   },
   {
-    title: "Proccess (0)",
-    value: "proccess",
+    title: "Proccess",
+    value: "inProgress",
   },
   {
-    title: "Completes (0)",
-    value: "completes",
+    title: "Completed",
+    value: "completed",
   },
   {
-    title: "Canceled (0)",
-    value: "canceled",
+    title: "Cancelled",
+    value: "cancelled",
   },
 ];
+
 const OrderTable = () => {
   const [cancelOrder, setCancelOrder] = useState<any>();
   const [acceptOrder, setAcceptOrder] = useState<any>();
-  const [tabValue, setTabValue] = useState<string>(filterTab[0].value);
+  const [tabValue, setTabValue] = useState<string>(defaultTab[0].value);
   const columns = useOrderTableColumns(setCancelOrder, setAcceptOrder);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dis = useAppDispatch();
+  const reRender = useAppSelector((store) => store.tableState.render);
 
   const acceptFormStore = useForm();
+
+  const { data: states, refetch } = useApi("/order/states");
+
+  const filterTab = useMemo(() => {
+    return defaultTab.map((item) => {
+      const found = states?.data.find(
+        (val: Record<string, any>) => val._id === item.value
+      );
+      if (found) {
+        return { ...found, ...item };
+      }
+
+      return item;
+    });
+  }, [states]);
+
+  const { mutate } = useApiMutation(`order`, "put", {
+    onSuccess() {
+      acceptOrder && setAcceptOrder(false);
+      cancelOrder && setCancelOrder(false);
+      dis(reRenderTable(true));
+      refetch();
+    },
+  });
+
+  const handleAcceptOrder = () => {
+    const requestData = {
+      initialPayment: acceptFormStore.watch("initialPayment"),
+      _id: acceptOrder._id,
+      state: "inProgress",
+    };
+
+    mutate(requestData);
+  };
+
+  const handleCancelOrder = () => {
+    const requestData = {
+      _id: cancelOrder._id,
+      state: "cancelled",
+    };
+
+    mutate(requestData);
+  };
 
   const renderHeader = (
     <Box>
@@ -61,22 +110,16 @@ const OrderTable = () => {
         gap: "10px",
       }}
     >
-      {filterTab.map((btn) => (
+      {filterTab?.map((btn: Record<string, any>) => (
         <CommonButton
           key={btn.title}
-          title={btn.title}
+          title={btn.title + ` (${btn?.count || 0})`}
           onClick={() => setTabValue(btn.value)}
           className={tabValue === btn.value ? "grey" : ""}
         />
       ))}
     </Box>
   );
-
-  const handleCancelOrder = () => {
-    console.log(cancelOrder);
-  };
-
-  const handleAcceptOrder = () => {};
 
   return (
     <>
@@ -89,7 +132,7 @@ const OrderTable = () => {
         headerChildrenSecond={renderHeaderSecond}
         searchable
         exQueryParams={{
-          state: "new",
+          state: tabValue,
         }}
         onRowClick={(row) => navigate(`/order/${row._id}`)}
         tableHeight={"calc(100vh - 295px)"}
@@ -104,7 +147,7 @@ const OrderTable = () => {
             No
           </Button>,
           <Button
-            key="submit"
+            // key="submit"
             type="primary"
             // loading={loading}
             onClick={handleCancelOrder}
@@ -116,8 +159,14 @@ const OrderTable = () => {
         <h1 className="realy_cancel text-center">Cancel</h1>
         <h2>
           Rosdan ham{" "}
-          <code className="color-blue">#{get(cancelOrder, "uuid", 0)}</code>{" "}
-          buyurtmani bekor qilmoqchimisiz?
+          <code className="color-blue">
+            #
+            {get(cancelOrder, "uuid", 0) +
+              " raqamli buyurtmani " +
+              get(cancelOrder, "receiverPhoneNumber", "") +
+              " dan"}{" "}
+          </code>{" "}
+          bekor qilmoqchimisiz?
         </h2>
       </Modal>
 
@@ -134,33 +183,31 @@ const OrderTable = () => {
             type="primary"
             htmlType="submit"
             // loading={loading}
-            onClick={acceptFormStore.handleSubmit(handleAcceptOrder)}
+            onClick={handleAcceptOrder}
           >
             Save
           </Button>,
         ]}
       >
-        <form>
-          <Space direction="vertical">
-            <Space size={"middle"}>
-              <div className="px-2">
-                <h1 className="text-center color-blue">Accept</h1>
-                <h3>
-                  Buyurtmani qabul qilishdan oldin zaklat olinish kerak, zaklat
-                  oldingizmi?
-                </h3>
-              </div>
-            </Space>
-            <Space>
-              <TextInput
-                control={acceptFormStore.control}
-                name="acceptPrice"
-                label={"Miqdor"}
-                type="number"
-              />
-            </Space>
+        <Space direction="vertical">
+          <Space size={"middle"}>
+            <div className="px-2">
+              <h1 className="text-center color-blue">Accept</h1>
+              <h3>
+                Buyurtmani qabul qilishdan oldin zaklat olinish kerak, zaklat
+                oldingizmi?
+              </h3>
+            </div>
           </Space>
-        </form>
+          <Space>
+            <TextInput
+              control={acceptFormStore.control}
+              name="initialPayment"
+              label={"Miqdor"}
+              type="number"
+            />
+          </Space>
+        </Space>
       </Modal>
     </>
   );

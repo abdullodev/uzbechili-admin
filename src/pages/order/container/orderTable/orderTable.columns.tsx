@@ -54,26 +54,29 @@ export const useOrderTableColumns = (
       field: "Action",
       renderCell({ row }) {
         return (
-          <div className="order_action">
-            <IconButton
-              className="cancel_order"
-              onClick={(e: any) => {
-                e.stopPropagation();
-                setCancelOrder(row);
-              }}
-            >
-              <CancelIcon />
-            </IconButton>
-            <IconButton
-              className="accept_order"
-              onClick={(e: any) => {
-                e.stopPropagation();
-                setAcceptOrder(row);
-              }}
-            >
-              <AcceptIcon />
-            </IconButton>
-          </div>
+          get(row, "state", "") !== "cancelled" &&
+          get(row, "state", "") !== "completed" && (
+            <div className="order_action">
+              <IconButton
+                className="cancel_order"
+                onClick={(e: any) => {
+                  e.stopPropagation();
+                  setCancelOrder(row);
+                }}
+              >
+                <CancelIcon />
+              </IconButton>
+              <IconButton
+                className="accept_order"
+                onClick={(e: any) => {
+                  e.stopPropagation();
+                  setAcceptOrder(row);
+                }}
+              >
+                <AcceptIcon />
+              </IconButton>
+            </div>
+          )
         );
       },
       flex: 0.8,

@@ -52,6 +52,13 @@ const CategoryForm: React.FC<IBranchForm> = ({
             <TextInput name="name" control={control} label={t("common.name")} />
           </Grid>
           <Grid item md={12}>
+            <ImageInput control={control} setValue={setValue} name="imageUrl" />
+            <div className="d-flex justify-content-between mt-3">
+              {/* <span>O'lcham</span>
+              <span>1080(px) - 250(px)</span> */}
+            </div>
+          </Grid>
+          <Grid item md={12}>
             <Box
               display="flex"
               alignItems="center"

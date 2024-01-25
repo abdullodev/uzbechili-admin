@@ -30,11 +30,13 @@ interface IOrderDetails {
   order: Record<string, any>;
   setCancelOrder: React.Dispatch<React.SetStateAction<boolean>>;
   setAcceptOrder: React.Dispatch<React.SetStateAction<boolean>>;
+  mutate: (data: any) => void;
 }
 const OrderDetail = ({
   order,
   setCancelOrder,
   setAcceptOrder,
+  mutate,
 }: IOrderDetails) => {
   return (
     <OrderDetailStyle>
@@ -48,24 +50,57 @@ const OrderDetail = ({
           </Stack>
           <Stack direction={"row"} spacing={1} alignItems={"center"}>
             <ChipButton
-              label={get(order, "state", 1) === "new" ? "New" : "In proccess"}
+              label={
+                get(order, "state", 1) === "new"
+                  ? "New"
+                  : get(order, "state", 1) === "inProgress"
+                  ? "InProgress"
+                  : get(order, "state", 1) === "completed"
+                  ? "Completed"
+                  : "Canceled"
+              }
               color="#fff"
-              bgColor="#0065FF"
+              bgColor={
+                get(order, "state", 1) === "new"
+                  ? "#0065FF"
+                  : get(order, "state", 1) === "inProgress"
+                  ? "#FFC107"
+                  : get(order, "state", 1) === "completed"
+                  ? "#17C657"
+                  : "#EF3838"
+              }
             />
             <ChipButton label="Cash" color="#fff" bgColor="#17C657" />
           </Stack>
         </Stack>
         <Stack direction={"row"} spacing={1}>
-          <CommonButton
-            title="Cancel"
-            className="cancel"
-            onClick={() => setCancelOrder(true)}
-          />
-          <CommonButton
-            title="Accept"
-            className="accept"
-            onClick={() => setAcceptOrder(true)}
-          />
+          {get(order, "state", 1) !== "cancelled" &&
+            get(order, "state", 1) !== "completed" && (
+              <>
+                <CommonButton
+                  title="Cancel"
+                  className="cancel"
+                  onClick={() => setCancelOrder(true)}
+                />
+                <CommonButton
+                  title={
+                    get(order, "state", 1) === "new" ? "Accept" : "Complete"
+                  }
+                  className={
+                    get(order, "state", 1) === "new" ? "accept" : "complete"
+                  }
+                  onClick={() => {
+                    if (get(order, "state", 1) === "new") {
+                      setAcceptOrder(true);
+                    } else
+                      mutate({
+                        _id: get(order, "_id", 1),
+                        state: "completed",
+                      });
+                  }}
+                />
+              </>
+            )}
         </Stack>
       </div>
 
@@ -131,8 +166,11 @@ const OrderDetail = ({
               <Stack width={"12%"}>
                 <div className="image_box">
                   <img
-                    src={process.env.REACT_APP_BASE_URL + item?.imageUrl}
-                    alt={item?.imageUrl}
+                    src={
+                      process.env.REACT_APP_BASE_URL +
+                      get(item, "productsInfo.imageUrls", [])?.[0]
+                    }
+                    alt={get(item, "productsInfo.imageUrls", [])?.[0]}
                   />
                 </div>
               </Stack>
@@ -140,15 +178,15 @@ const OrderDetail = ({
                 <Tooltip
                   title={
                     <p className="title">
-                      {get(item, "name", "")} Color {get(item, "color", "")}{" "}
-                      Size: {get(item, "size", "")}
+                      {get(item, "productsInfo.name", "")} Color{" "}
+                      {get(item, "color", "")} Size: {get(item, "size", "")}
                     </p>
                   }
                   placement="top-start"
                 >
                   <p className="title">
-                    {get(item, "name", "")} Color: {get(item, "color", "")}{" "}
-                    Size: {get(item, "size", "")}
+                    {get(item, "productsInfo.name", "")} Color:{" "}
+                    {get(item, "color", "")} Size: {get(item, "size", "")}
                   </p>
                 </Tooltip>
                 <p className="grey size-14">{get(item, "price", 0)}</p>

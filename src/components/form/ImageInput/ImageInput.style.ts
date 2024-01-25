@@ -88,7 +88,7 @@ export const ImageInputStyled = styled.div`
     width: 16px;
     height: 16px;
     text-align: center;
-    line-height: 16px;
+    /* line-height: 16px; */
     border-radius: 50%;
   }
 `;

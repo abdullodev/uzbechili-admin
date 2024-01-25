@@ -90,7 +90,7 @@ function ImageInput<FormNames extends Record<string, any>>({
                     <CircularProgress color="primary" size={30} />
                   </div>
                 ) : field?.value && !multiple ? (
-                  <Image src={field?.value?.url} />
+                  <Image src={field?.value} />
                 ) : (
                   <div className="image-top">
                     <DefaultImage />

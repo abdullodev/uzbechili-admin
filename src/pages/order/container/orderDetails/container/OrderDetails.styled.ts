@@ -71,4 +71,16 @@ export const OrderDetailFormStyle = styled(Box)`
     padding-bottom: 10px;
     align-items: center;
   }
+
+  .edit_span {
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #3e5189;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
 `;

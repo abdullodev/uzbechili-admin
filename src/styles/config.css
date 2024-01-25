@@ -136,7 +136,7 @@ p[data-f-id="pbf"] {
   text-align: center;
   font-weight: bold;
   font-size: 13px !important;
-  line-height: 15px;
+  /* line-height: 15px; */
 }
 .contract-report-table .car-name-info div {
   text-align: left !important;

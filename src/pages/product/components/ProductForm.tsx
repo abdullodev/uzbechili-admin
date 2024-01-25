@@ -56,8 +56,6 @@ const ProductForm = ({
     }
   );
 
-  console.log(getByIdData);
-
   useEffect(() => {
     if (status === "success") {
       resetForm();
@@ -74,8 +72,6 @@ const ProductForm = ({
       setProductImages(get(getByIdData, "data.imageUrls", []));
     }
   }, [getByIdStatus, getByIdData]);
-
-  console.log(productImages);
 
   return (
     <ProductFormStyled className="custom-drawer">

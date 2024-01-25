@@ -71,7 +71,7 @@ export const GlobalStyle = createGlobalStyle`
      p {
           font-weight: 400;
           font-size: 16px;
-          line-height: 20px;
+          /* line-height: 20px; */
      }
     
    

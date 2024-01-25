@@ -202,7 +202,7 @@ export const NavbarUserProfStyled = styled.div`
     text-transform: inherit;
     width: 100% !important;
     border-radius: 8px;
-    line-height: 18px;
+    /* line-height: 18px; */
     gap: 4px;
     height: 100%;
     background-color: #f5f5f5;

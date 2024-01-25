@@ -1,6 +1,6 @@
 import { Grid, Stack, Typography } from "@mui/material";
 import CommonButton from "components/common/commonButton/Button";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { OrderDetailFormStyle } from "../container/OrderDetails.styled";
 import { PhoneInput, SelectForm, TextInput } from "components";
 import { UseFormReturn, useForm } from "react-hook-form";
@@ -11,20 +11,49 @@ interface IOrderDetailForm {
   formStore: UseFormReturn<any>;
   submit: any;
   order: Record<string, any>;
+  orderStatus: string;
 }
-const OrderDetailForm = ({ formStore, submit, order }: IOrderDetailForm) => {
-  const disabled = get(order, "state", "") === "new";
+const OrderDetailForm = ({
+  formStore,
+  submit,
+  order,
+  orderStatus,
+}: IOrderDetailForm) => {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const disabled = !isEdit;
+
+  useEffect(() => {
+    if (orderStatus === "success") {
+      setIsEdit(false);
+    }
+  }, [orderStatus]);
 
   return (
     <OrderDetailFormStyle>
-      <form onSubmit={submit}>
+      <form onSubmit={submit} id="update_user_info">
         <div className="d-flex justify-content-between header_sticky">
           <Typography component={"h1"} variant="h5">
             Client details
           </Typography>
-          {!disabled && (
-            <CommonButton title="Save" className="main" type="submit" />
-          )}
+          {get(order, "state", "") !== "new" &&
+            (isEdit ? (
+              <CommonButton
+                title="Save"
+                className="main"
+                type="submit"
+                form="update_user_info"
+              />
+            ) : (
+              <span
+                onClick={(e: any) => {
+                  e.stopPropagation();
+                  setIsEdit(true);
+                }}
+                className="edit_span"
+              >
+                Edit
+              </span>
+            ))}
         </div>
 
         <Grid container spacing={1}>
@@ -130,6 +159,17 @@ const OrderDetailForm = ({ formStore, submit, order }: IOrderDetailForm) => {
               control={formStore.control}
               name="about"
               label={"Nearby landmarks"}
+              rules={{ required: false }}
+              disabled={disabled}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextInput
+              control={formStore.control}
+              name="initialPayment"
+              type="number"
+              label={"Initial payment"}
               rules={{ required: false }}
               disabled={disabled}
             />

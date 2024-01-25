@@ -19,7 +19,7 @@ export const SearchInputStyled = styled.div`
     color: #333;
     border-radius: 10px;
     border: 1px solid #d9d9d9;
-    line-height: 50px !important;
+    /* line-height: 50px !important; */
   }
   .input-search::placeholder {
     font-size: 14px;

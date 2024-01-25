@@ -46,6 +46,10 @@ export const ButtonStyled = styled(Button)`
     background-color: #3e5189 !important;
     color: #fff !important;
   }
+  &.complete {
+    background-color: #17c657 !important;
+    color: #fff !important;
+  }
   &.cancel {
     background-color: #ef3838 !important;
     color: #fff !important;

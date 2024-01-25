@@ -17,7 +17,7 @@ export const TimePickerContainer = styled("div")`
       color: #333333 !important;
       padding: 9px 16px;
       font-size: 16px;
-      line-height: 20px;
+      /* line-height: 20px; */
       letter-spacing: -0.02em;
       outline: none;
       font-weight: 500;

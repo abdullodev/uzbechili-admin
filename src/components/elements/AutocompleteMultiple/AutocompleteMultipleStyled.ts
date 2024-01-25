@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const AutoCompleteStyledMultiple = styled.div` //! @dangerous qolgan autocomplete lar ham stili shunda
+export const AutoCompleteStyledMultiple = styled.div`
+  //! @dangerous qolgan autocomplete lar ham stili shunda
   label {
     font-weight: 500;
     /* mask-type: ; */
@@ -13,11 +14,10 @@ export const AutoCompleteStyledMultiple = styled.div` //! @dangerous qolgan auto
     }
   }
   .MuiFormLabel-root {
-    /* top: -8px !important; */
-    /* margin-top: -5px !important; */
+    top: -8px !important;
+    margin-top: -5px !important;
   }
   .MuiInputBase-root {
-    /* height: 48px !important; */
     margin-top: 5px;
     padding: 0 60px 0 4px !important;
     height: 54px;
