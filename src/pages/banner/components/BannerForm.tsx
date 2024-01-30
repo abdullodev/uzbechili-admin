@@ -34,15 +34,14 @@ const BannerForm: FC<IEmployeesForm> = ({
     mutate({
       _id: editingBannerId,
       ...data,
-      imageUrl: data.imageUrl?.url,
+      imageUrl: data.imageUrl,
     });
   };
 
   useEffect(() => {
     if (editingBannerId) {
-      console.log(editingBannerId);
       reset(editingBannerId);
-      setValue("imageUrl", { url: editingBannerId.imageUrl });
+      setValue("imageUrl", editingBannerId.imageUrl);
     }
   }, [editingBannerId]);
 

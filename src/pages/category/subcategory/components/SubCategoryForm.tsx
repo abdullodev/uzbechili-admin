@@ -30,9 +30,9 @@ const SubCategoryForm: React.FC<IBranchForm> = ({
 
   const sumbit = (data: any) => {
     mutate({
-      ...data,
+      _id: data?._id,
+      name: data.name,
       categoryId: id,
-      isSoon: false,
     });
   };
 
