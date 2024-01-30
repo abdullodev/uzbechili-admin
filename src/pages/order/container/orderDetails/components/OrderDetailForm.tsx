@@ -164,16 +164,18 @@ const OrderDetailForm = ({
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <TextInput
-              control={formStore.control}
-              name="initialPayment"
-              type="number"
-              label={"Initial payment"}
-              rules={{ required: false }}
-              disabled={disabled}
-            />
-          </Grid>
+          {formStore.watch("initialPayment") && (
+            <Grid item xs={12}>
+              <TextInput
+                control={formStore.control}
+                name="initialPayment"
+                type="number"
+                label={"Initial payment"}
+                rules={{ required: false }}
+                disabled={disabled}
+              />
+            </Grid>
+          )}
 
           {/* <Grid item xs={12}>
           <TextInput

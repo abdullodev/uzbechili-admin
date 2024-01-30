@@ -75,6 +75,7 @@ const OrderDetails = () => {
         floor: get(data, "floor", ""),
         flatNumber: get(data, "flatNumber", ""),
         about: get(data, "about", ""),
+        initialPayment: get(data, "initialPayment", ""),
       },
     };
 
