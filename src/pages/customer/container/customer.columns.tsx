@@ -11,7 +11,11 @@ export const useCustomerColumns = (): GridColumns => {
     {
       field: "Name",
       renderCell({ row }) {
-        return get(row, "fullName", "");
+        return (
+          <span>
+            {get(row, "firstName", "") + " " + get(row, "lastName", "")}
+          </span>
+        );
       },
     },
     {
@@ -29,7 +33,7 @@ export const useCustomerColumns = (): GridColumns => {
     {
       field: "Amount",
       renderCell({ row }) {
-        return numberFormat(get(row, "totalOrdersPrice", ""));
+        return numberFormat(get(row, "totalAmount", ""));
       },
     },
 

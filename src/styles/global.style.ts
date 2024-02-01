@@ -157,3 +157,41 @@ export const AmountCalcBox = styled(Box)`
     }
   }
 `;
+
+export const MainBox = styled(Box)`
+  width: 100%;
+  min-height: calc(100vh - 40px);
+`;
+
+export const DetailBox = styled(Box)`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+
+  p {
+    color: #0065ff;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  ul {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+      font-size: 14px;
+      list-style: none;
+      font-weight: 600;
+      color: #999;
+
+      span {
+        color: #000;
+      }
+    }
+  }
+`;

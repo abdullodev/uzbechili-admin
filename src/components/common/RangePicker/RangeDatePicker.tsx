@@ -18,8 +18,8 @@ const RangeDatePicker = ({ filterable = true }: { filterable?: boolean }) => {
     setDate(value);
     if (filterable) {
       if (value === null) {
-        delete allParams?.dateFrom;
-        delete allParams?.dateTo;
+        delete allParams?.fromDate;
+        delete allParams?.toDate;
         setSearchParams({
           ...allParams,
         });
@@ -27,8 +27,8 @@ const RangeDatePicker = ({ filterable = true }: { filterable?: boolean }) => {
       if (value && dayjs(value?.[0]).isValid() && dayjs(value?.[1]).isValid()) {
         setSearchParams({
           ...allParams,
-          dateFrom: dayjs(value?.[0]).startOf('day').toISOString(),
-          dateTo: dayjs(value?.[1]).endOf('day').toISOString()
+          fromDate: dayjs(value?.[0]).startOf("day").toISOString(),
+          toDate: dayjs(value?.[1]).endOf("day").toISOString(),
         });
       }
     }
