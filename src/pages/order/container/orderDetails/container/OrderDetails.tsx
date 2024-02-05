@@ -31,7 +31,7 @@ const OrderDetails = () => {
       // suspense: false,
     }
   );
-  const order = data?.data;
+  const order = data?.data!;
 
   const { mutate, status: orderStatus } = useApiMutation(`order`, "put", {
     onSuccess() {
@@ -58,7 +58,7 @@ const OrderDetails = () => {
         initialPayment: get(order, "initialPayment", ""),
       });
     }
-  }, [status]);
+  }, [status, order]);
 
   const submit = handleSubmit((data: any) => {
     const requestData = {

@@ -25,6 +25,7 @@ const OrderDetailForm = ({
   useEffect(() => {
     if (orderStatus === "success") {
       setIsEdit(false);
+      formStore.setValue("initialPayment", order?.initialPayment);
     }
   }, [orderStatus]);
 
