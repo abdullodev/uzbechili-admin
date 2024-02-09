@@ -8,6 +8,7 @@ import ProductForm from "../components/ProductForm";
 import { IIdImage } from "hooks/usePostImage";
 import { useAppDispatch } from "store/storeHooks";
 import { setOpenDrawer } from "components/elements/FormDrawer/formdrawer.slice";
+import WarningModal from "components/common/WarningModal/WarningModal";
 
 const Client = () => {
   const columns = useProductColumns();
@@ -57,6 +58,9 @@ const Client = () => {
         }}
         onDeleteColumn={(row) => setProductId(row._id)}
       />
+
+      <WarningModal open={productId} setOpen={setProductId} url={`product`} />
+
       <FormDrawer
         FORM_ID="product"
         isEditing={!!editingProduct}
