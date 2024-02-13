@@ -134,6 +134,7 @@ export const product_size = [
   },
 ];
 
+
 export const product_color = [
   {
     _id: "black",
