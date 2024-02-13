@@ -136,11 +136,11 @@ const OrderDetail = ({
             <PromocodeIcon />
             <div className="grey">Promokod:</div>
           </Stack>
-          <b>{numberFormat(get(order, "promocode.amount", 0))} uzs</b>
+          <b>{numberFormat(get(order, "promoCode.amount", 0))} uzs</b>
           <Typography>
-            {get(order, "promocode.name", "") +
+            {get(order, "promoCode.name", "") +
               " " +
-              get(order, "promocode.type", "")}
+              get(order, "promoCode.type", "")}
           </Typography>
         </Stack>
         <Stack direction={"row"} spacing={1} alignItems={"center"}>
