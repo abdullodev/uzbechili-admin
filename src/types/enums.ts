@@ -168,7 +168,7 @@ export const product_color = [
     name: "Qaymoq rang",
   },
   {
-    _id: "grey",
+    _id: "gray",
     name: "Kulrang",
   },
   {
