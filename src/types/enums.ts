@@ -153,11 +153,11 @@ export const product_color = [
   },
   {
     _id: "red",
-    name: "Ko'k",
+    name: "Qizil",
   },
   {
     _id: "green",
-    name: "Ko'k",
+    name: "Yashil",
   },
   {
     _id: "pink",
