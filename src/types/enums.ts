@@ -116,10 +116,10 @@ export const product_size = [
     _id: "S",
     name: "S",
   },
-  // {
-  //   _id: "M",
-  //   name: "M",
-  // },
+  {
+    _id: "M",
+    name: "M",
+  },
   {
     _id: "L",
     name: "L",
@@ -132,8 +132,11 @@ export const product_size = [
     _id: "XXL",
     name: "XXL",
   },
+  {
+    _id: "OVERSIZE",
+    name: "OVERSIZE",
+  },
 ];
-
 
 export const product_color = [
   {
@@ -147,5 +150,33 @@ export const product_color = [
   {
     _id: "blue",
     name: "Ko'k",
+  },
+  {
+    _id: "red",
+    name: "Ko'k",
+  },
+  {
+    _id: "green",
+    name: "Ko'k",
+  },
+  {
+    _id: "Pink",
+    name: "Pushti",
+  },
+  {
+    _id: "cream",
+    name: "Qaymoq rang",
+  },
+  {
+    _id: "grey",
+    name: "Kulrang",
+  },
+  {
+    _id: "brown",
+    name: "Jigarrang",
+  },
+  {
+    _id: "purple",
+    name: "Siyohrang",
   },
 ];
