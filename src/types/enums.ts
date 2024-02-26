@@ -160,7 +160,7 @@ export const product_color = [
     name: "Ko'k",
   },
   {
-    _id: "Pink",
+    _id: "pink",
     name: "Pushti",
   },
   {
